@@ -14,7 +14,7 @@ return [
     */
 
     'defaults' => [
-        'guard' => 'web',
+        'guard' => 'user',
         'passwords' => 'users',
     ],
 
@@ -36,7 +36,7 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        'user' => [
             'driver' => 'session',
             'provider' => 'users',
         ],
@@ -44,6 +44,11 @@ return [
         'api' => [
             'driver' => 'token',
             'provider' => 'users',
+        ],
+
+        'shop' => [ //追加
+            'driver' => 'session', //追加
+            'provider' => 'shops', //追加
         ],
     ],
 
@@ -70,10 +75,10 @@ return [
             'model' => App\User::class,
         ],
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
+        'shops' => [
+            'driver' => 'eloquent',
+            'model' => App\Shop::class,
+        ],
     ],
 
     /*
@@ -96,6 +101,12 @@ return [
             'provider' => 'users',
             'table' => 'password_resets',
             'expire' => 60,
+        ],
+
+        'shops' => [ //追加
+            'provider' => 'shops', //追加
+            'table' => 'password_resets', //追加
+            'expire' => 60, //追加
         ],
     ],
 
