@@ -17,11 +17,11 @@ class CreateSlipsTable extends Migration
             $table->increments('id');
             $table->integer('user_id')->unsigned();
             $table->integer('shop_id')->unsigned();
-            $table->timestamp('start_time');
-            $table->timestamp('end_time')->nullable();
-            $table->integer('accounting');
-            $table->boolean('is_visit')->default(false);
-            $table->timestamps();
+            $table->time('start_time');
+            $table->time('end_time')->nullable();
+            $table->integer('accounting')->nullable();
+            $table->boolean('is_visit')->default(0);
+            $table->date('date');
 
             $table->foreign('user_id')
                 ->references('id')

@@ -19,6 +19,7 @@ class CreateOrdersTable extends Migration
             $table->integer('shop_id')->unsigned();
             $table->string('order_name', 255);
             $table->integer('order_price');
+            $table->timestamp('date');
             $table->timestamps();
 
             $table->foreign('user_id')

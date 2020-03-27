@@ -21,7 +21,10 @@ Route::group(['middleware' => 'auth:user'], function () {
 // 店舗ユーザーのログイン中の処理
 Route::group(['prefix' => 'shop', 'middleware' => 'auth:shop'], function () {
     Route::post('logout', 'Shop\Auth\LoginController@logout')->name('shop.logout');
-    Route::get('home', 'Shop\HomeController@index')->name('shop.home');
+    Route::get('home', 'Shop\ShopController@index')->name('shop.home');
+
+    Route::get('seats', 'Shop\ShopController@seats')->name('shop.seats');
+    Route::get('slip', 'Shop\ShopController@slip')->name('shop.slip');
 });
 
 // 店舗ユーザーの未ログイン中の処理
