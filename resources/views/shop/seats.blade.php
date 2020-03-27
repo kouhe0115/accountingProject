@@ -5,7 +5,11 @@
 @section('content')
   <h1>Shop Seats Status</h1>
   
-  @foreach ($seatStatus as $seat)
-      <p>{{ $seat->user_id }}</p>
+  <p>{{ count($visitUsers) }}</p>
+
+  @foreach ($visitUsers as $visitUser)
+      <p>{{ $visitUser->user->name }}
+        <a href="{{ route('shop.order', $visitUser->user_id) }}">オーダー状況</a>
+      </p>
   @endforeach
 @endsection

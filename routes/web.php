@@ -25,6 +25,7 @@ Route::group(['prefix' => 'shop', 'middleware' => 'auth:shop'], function () {
 
     Route::get('seats', 'Shop\ShopController@seats')->name('shop.seats');
     Route::get('slip', 'Shop\ShopController@slip')->name('shop.slip');
+    Route::get('{id}/order', 'Shop\ShopController@order')->name('shop.order');
 });
 
 // 店舗ユーザーの未ログイン中の処理

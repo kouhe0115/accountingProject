@@ -21,7 +21,7 @@ class CreateSlipsTable extends Migration
             $table->time('end_time')->nullable();
             $table->integer('accounting')->nullable();
             $table->boolean('is_visit')->default(0);
-            $table->date('date');
+            $table->timestamp('date');
 
             $table->foreign('user_id')
                 ->references('id')

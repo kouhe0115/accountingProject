@@ -34,4 +34,9 @@ class Slip extends Model
         'end_time',
         'date',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

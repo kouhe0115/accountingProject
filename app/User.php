@@ -42,4 +42,9 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
+    public function slip()
+    {
+        return $this->hasMany(Slip::class);
+    }
+
 }

@@ -26,8 +26,8 @@ class ShopController extends Controller
 
     public function seats()
     {
-        $seatStatus = $this->shopService->seatStatus();
-        return view('shop.seats', compact('seatStatus'));
+        $visitUsers = $this->shopService->visitUsers();
+        return view('shop.seats', compact('visitUsers'));
     }
 
     public function accounting()
@@ -40,5 +40,13 @@ class ShopController extends Controller
         $todayOrders = $this->shopService->fetchTodayOrders();
         $dailyTotalAccounting = $this->shopService->todayTotalAccounting($todayOrders);
         return view('shop.slip', compact('dailyTotalAccounting', 'todayOrders'));
+    }
+
+
+    public function order($userId)
+    {
+        $orders = $this->shopService->fetchOrderByUserId($userId);
+        $userPrice = $this->shopService->todayUserTotalAccounting($orders);
+        return view('shop.order', compact('orders', 'userPrice'));
     }
 }

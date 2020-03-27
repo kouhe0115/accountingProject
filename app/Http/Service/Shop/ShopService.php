@@ -59,9 +59,14 @@ class ShopService
     /**
      * 来店中のユーザーの取得
      */
-    public function seatStatus()
+    public function visitUsers()
     {
-        return $this->slip->where('shop_id', Auth::id())->where('is_visit', true)->get();
+        $shop = $this->shop->where('id', Auth::id())->first();
+        $startTime = new Carbon($shop->start_time);
+        $endTime = new Carbon('tomorrow'.$shop->end_time);
+
+        return $this->slip->where('shop_id', Auth::id())
+            ->where('is_visit', true)->whereBetween('date', [$startTime, $endTime])->get();
     }
 
     /**
@@ -103,5 +108,28 @@ class ShopService
         };
 
         return $todayTotalAccounting;
+    }
+
+    public function fetchOrderByUserId($userId)
+    {
+        $shop = $this->shop->where('id', Auth::id())->first();
+        $startTime = new Carbon($shop->start_time);
+        $endTime = new Carbon('tomorrow'.$shop->end_time);
+
+        return $this->order->where('shop_id', Auth::id())
+            ->where('user_id', $userId)
+            ->whereBetween('date', [$startTime, $endTime])
+            ->get();
+    }
+
+    public function todayUserTotalAccounting($orders)
+    {
+        $todayUserTotalAccounting = 0;
+
+        foreach ($orders as $order) {
+            $todayUserTotalAccounting += $order->order_price;
+        };
+
+        return $todayUserTotalAccounting;
     }
 }
