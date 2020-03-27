@@ -3,13 +3,15 @@
 @extends('layouts.app_shop')
 
 @section('content')
-  <h1>Shop Slip</h1>
-  
-  <p>{{ $dailyTotalAccounting }}</p>
+  <h1>日報</h1>
 
-  @foreach ($todayOrders as $todayOrder)
-      {{ $todayOrder->user->name }}
-      {{ $todayOrder->order_name }}
-      {{ $todayOrder->order_price }}
+  @foreach ($todayUserTotalAccounting as $todayUserTotalAccounting)
+      <p>
+        {{ $todayUserTotalAccounting->user_id }}
+        {{ $todayUserTotalAccounting->order_price }}
+      </p>
   @endforeach
+
+  <p>今日の合計</p>
+  {{ $dailyTotalAccounting }}
 @endsection

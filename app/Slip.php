@@ -12,7 +12,7 @@ class Slip extends Model
      * @var array
      */
     protected $casts = [
-        'is_visits' => 'boolean',
+        'is_visit' => 'boolean',
     ];
 
     /**
@@ -26,7 +26,7 @@ class Slip extends Model
         'start_time',
         'end_time',
         'accounting',
-        'is_visits'
+        'is_visit'
     ];
 
     protected $dates = [

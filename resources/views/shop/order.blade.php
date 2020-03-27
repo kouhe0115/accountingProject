@@ -3,12 +3,17 @@
 @extends('layouts.app_shop')
 
 @section('content')
-  <h1>Shop Slip</h1>
+  <h1>個別の注文状況</h1>
 
   @foreach ($orders as $order)
-      {{ $order->order_name }}
-      {{ $order->order_price }}
+      <p>
+        {{ $order->order_name }}
+        {{ $order->order_price }}
+      </p>
   @endforeach
 
-  <p>{{ $userPrice }}</p>
+  <p>
+    合計
+    {{ $userPrice }}
+  </p>
 @endsection

@@ -7,6 +7,7 @@ use App\Slip;
 use App\Order;
 use Auth;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 /**
  * 店舗に関するメソッド
@@ -110,6 +111,11 @@ class ShopService
         return $todayTotalAccounting;
     }
 
+    /**
+     * 当日の個人のオーダーの取得
+     * 
+     * @param $userId
+     */
     public function fetchOrderByUserId($userId)
     {
         $shop = $this->shop->where('id', Auth::id())->first();
@@ -122,6 +128,12 @@ class ShopService
             ->get();
     }
 
+    /**
+     * 当日の個人の会計の合計の計算
+     * 
+     * @param $orders
+     * @return float
+     */
     public function todayUserTotalAccounting($orders)
     {
         $todayUserTotalAccounting = 0;
@@ -131,5 +143,25 @@ class ShopService
         };
 
         return $todayUserTotalAccounting;
+    }
+
+    /**
+     * 日報用の当日の個人の会計の合計を一覧で取得
+     */
+    public function slipTodayUserTotalAccounting()
+    {
+        return DB::table('orders')
+            ->select(DB::raw('user_id ,sum(order_price) as order_price'))
+            ->groupBy('user_id')
+            ->get();
+    }
+
+    public function registerAccounting($id, $userPrice)
+    {
+        $this->slip->find($id)->update([
+            'end_time' => Carbon::now(),
+            'is_visit' => false,
+            'accounting' => $userPrice,
+        ]);
     }
 }
